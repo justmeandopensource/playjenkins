@@ -2,6 +2,7 @@ pipeline {
 
   environment {
     registry = "192.168.1.81:5000/justme/myweb"
+    dockerImage = ""
   }
 
   agent any
@@ -17,7 +18,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
