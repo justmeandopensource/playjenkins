@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "10.95.65.195:5000/justme/myweb"
+    registry = "192.168.1.81:5000/justme/myweb"
   }
 
   agent any
@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( '' ) {
+          docker.withRegistry( registry ) {
             dockerImage.push()
           }
         }
