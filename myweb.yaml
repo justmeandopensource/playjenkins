@@ -17,6 +17,7 @@ spec:
     spec:
       containers:
       - image: 10.95.65.195:5000/justme/myweb:2
+        imagePullPolicy: Always
         name: myweb
 
 ---
