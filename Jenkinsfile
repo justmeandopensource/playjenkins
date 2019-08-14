@@ -9,13 +9,13 @@ pipeline {
 
   stages {
 
-    stage('Cloning Git') {
+    stage('Checkout Source') {
       steps {
         git 'https://github.com/justmeandopensource/playjenkins.git'
       }
     }
 
-    stage('Building image') {
+    stage('Build image') {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -23,12 +23,20 @@ pipeline {
       }
     }
 
-    stage('Deploy Image') {
+    stage('Push Image') {
       steps{
         script {
           docker.withRegistry( "" ) {
             dockerImage.push()
           }
+        }
+      }
+    }
+
+    stage('Deploy App') {
+      steps {
+        script {
+          kuberetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
         }
       }
     }
