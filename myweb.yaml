@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: banik123/myweb:7
+      - image: banik123/myweb:8
         imagePullPolicy: Always
         name: myweb
 
