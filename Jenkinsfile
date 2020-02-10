@@ -24,11 +24,10 @@ pipeline {
     }
 
     stage('Push Image') {
-      steps{
-        script {
-          docker.withRegistry([ credentialsId: "Dockerhub", url: "" ]) {
-            dockerImage.push()
-          }
+        steps {
+        withDockerRegistry([ credentialsId: "Dockerhub", url: "" ]) {
+          sh 'docker push banik123/myweb:$BUILD_NUMBER'
+       
         }
       }
     }
