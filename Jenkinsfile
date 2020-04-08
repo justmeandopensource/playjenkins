@@ -6,7 +6,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/justmeandopensource/playjenkins.git'
+        git url:'https://github.com/justmeandopensource/playjenkins.git' branch:'test-deploy-stage'
       }
     }
 
