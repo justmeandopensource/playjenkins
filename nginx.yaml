@@ -4,9 +4,9 @@ kind: Deployment
 metadata:
   labels:
     app: web
-  name: mynginx
+  name: mynginx-momo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: web
@@ -25,13 +25,13 @@ kind: Service
 metadata:
   labels:
     app: web
-  name: mynginx
+  name: mynginx-svc
 spec:
   ports:
   - nodePort: 32223
     port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 70000
   selector:
     app: web
   type: NodePort
