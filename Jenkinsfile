@@ -7,7 +7,6 @@ pipeline {
     stage('Kaniko Build & Push Image') {
       agent {
         kubernetes {
-          label 'kaniko-builder'
           defaultContainer 'builder'
           yamlFile 'builder.yaml'
         }
