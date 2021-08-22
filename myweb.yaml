@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: pipeline-demo
+
 ---
 apiVersion: apps/v1
 kind: Deployment
