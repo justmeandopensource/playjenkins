@@ -28,7 +28,7 @@ pipeline {
 
     stage('Deploy App to Kubernetes') {     
       steps {
-        container('kubectl') {
+        container('kaniko') {
           withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
             sh 'echo "what the hell"'
             sh 'cat $KUBECONFIG'
