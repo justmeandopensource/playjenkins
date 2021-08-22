@@ -29,7 +29,7 @@ pipeline {
     stage('Deploy App to Kubernetes') {     
       steps {
         container('kubectl') {
-          withKubeConfig([credentialsId: 'mykubeconfig']) {
+          withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
             sh 'kubectl apply -f myweb.yaml'
           }
         }
