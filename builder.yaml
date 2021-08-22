@@ -4,7 +4,12 @@ metadata:
   name: kaniko
 spec:
   containers:
-  - name: builder
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true    
+  - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:
     - /busybox/cat
