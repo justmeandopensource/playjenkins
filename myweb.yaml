@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: justmeandopensource/myweb:${BUILD_NUMBER}
+      - image: justmeandopensource/myweb:<TAG>
         imagePullPolicy: Always
         name: myweb
 
