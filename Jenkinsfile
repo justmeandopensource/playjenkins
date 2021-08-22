@@ -30,6 +30,8 @@ pipeline {
       steps {
         container('kubectl') {
           withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
+            sh 'cat $KUBECONFIG'
+            sh 'use $KUBECONFIG'
             sh 'kubectl apply -f myweb.yaml'
           }
         }
