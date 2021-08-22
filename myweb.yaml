@@ -1,10 +1,16 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pipeline-demo
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: myweb
   name: myweb
+  namespace: pipeline-demo
 spec:
   replicas: 1
   selector:
@@ -27,6 +33,7 @@ metadata:
   labels:
     app: myweb
   name: myweb
+  namespace: pipeline-demo
 spec:
   ports:
   - nodePort: 32223
