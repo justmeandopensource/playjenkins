@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins-http
+  namespace: jenkins
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`jenkins.cams7.ml`)
+      kind: Rule
+      services:
+        - name: jenkins
+          port: 8080
