@@ -1,5 +1,17 @@
 ---
 apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jenkins-redirect-scheme
+  namespace: jenkins
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+    port: "443"
+
+---
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins-http
@@ -10,6 +22,26 @@ spec:
   routes:
     - match: Host(`jenkins.cams7.ml`)
       kind: Rule
+      middlewares:
+        - name: jenkins-redirect-scheme  
       services:
         - name: jenkins
           port: 8080
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins-https
+  namespace: jenkins
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jenkins.cams7.ml`)
+      kind: Rule
+      services:
+        - name: jenkins
+          port: 8080
+  tls:
+    certResolver: pebble

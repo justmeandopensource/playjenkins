@@ -105,5 +105,5 @@ spec:
         - name: myweb
           port: 80
   tls:
-    certResolver: letsencrypt
+    certResolver: pebble
 
