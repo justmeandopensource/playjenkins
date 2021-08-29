@@ -44,4 +44,5 @@ spec:
         - name: jenkins
           port: 8080
   tls:
-    certResolver: pebble
+#    certResolver: pebble
+    secretName: jenkins.cams7.ml

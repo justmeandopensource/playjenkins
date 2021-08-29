@@ -105,5 +105,6 @@ spec:
         - name: myweb
           port: 80
   tls:
-    certResolver: pebble
+#    certResolver: pebble
+    secretName: dev.cams7.ml
 
