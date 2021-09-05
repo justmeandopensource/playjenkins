@@ -9,7 +9,6 @@ spec:
     scheme: https
     permanent: true
     port: "443"
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -27,7 +26,6 @@ spec:
       services:
         - name: jenkins
           port: 8080
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -44,5 +42,4 @@ spec:
         - name: jenkins
           port: 8080
   tls:
-#    certResolver: pebble
     secretName: jenkins.cams7.ml

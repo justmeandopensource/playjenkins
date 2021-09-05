@@ -1,17 +1,10 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: demo210827
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: myweb
   name: myweb
-  namespace: demo210827
 spec:
   replicas: 3
   selector:
@@ -26,7 +19,6 @@ spec:
       - image: cams7/myweb:<TAG>
         imagePullPolicy: Always
         name: myweb
-
 ---
 apiVersion: v1
 kind: Service
@@ -34,7 +26,6 @@ metadata:
   labels:
     app: myweb
   name: myweb
-  namespace: demo210827
 spec:
   ports:
   - name: http
@@ -44,37 +35,30 @@ spec:
   selector:
     app: myweb
   type: ClusterIP
-
----
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: myweb-redirect-scheme
-  namespace: demo210827
 spec:
   redirectScheme:
     scheme: https
     permanent: true
     port: "443"
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: myweb-strip-path-prefix
-  namespace: demo210827
 spec:
   stripPrefix:
     prefixes:
       - /myweb
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: myweb-http
-  namespace: demo210827
 spec:
   entryPoints:
     - web
@@ -86,13 +70,11 @@ spec:
       services:
         - name: myweb
           port: 80
-
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: myweb-https
-  namespace: demo210827
 spec:
   entryPoints:
     - websecure
@@ -105,6 +87,4 @@ spec:
         - name: myweb
           port: 80
   tls:
-#    certResolver: pebble
     secretName: dev.cams7.ml
-
