@@ -19,7 +19,7 @@ pipeline {
             sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
-                             --destination=cams7/myweb:${BUILD_NUMBER}
+                             --destination=private.nexus.cams7.ml/myweb:${BUILD_NUMBER}
             '''
           }
         }

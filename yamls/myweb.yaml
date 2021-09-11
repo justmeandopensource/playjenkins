@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: cams7/myweb:<TAG>
+      - image: public.nexus.cams7.ml/myweb:<TAG>
         imagePullPolicy: Always
         name: myweb
 ---
