@@ -16,7 +16,7 @@ pipeline {
         steps {
             slackSend (
               color: '#F7A200' ,
-              message: "Hey, your CI/CD trigger has *Started* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<`https://jenkins.cams7.ml/job/${env.JOB_NAME}/${env.BUILD_NUMBER}`|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>" 
+              message: "Hey, your CI/CD trigger has *Started* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<https://jenkins.cams7.ml/job/${env.JOB_NAME}/${env.BUILD_NUMBER}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>" 
             )
         }
     }
