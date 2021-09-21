@@ -12,6 +12,16 @@ pipeline {
 
   stages {
 
+    stage ('Pre Actions-Build Started') {
+        steps {
+            slackSend (
+              color: '#F7A200' ,
+              message: "Hey, your CI/CD trigger has *Started* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>" 
+            )
+        }
+    }
+
+
     stage('Kaniko Build & Push Image') {
       steps {
         container('kaniko') {
