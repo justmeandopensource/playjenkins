@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myweb
+  template:
+    metadata:
+      labels:
+        app: myweb
+    spec:
+      containers:
+      - image: public.nexus.cams7.ml/myweb:<TAG>
+        imagePullPolicy: Always
+        name: myweb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: myweb
+  type: ClusterIP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: myweb-redirect-scheme
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+    port: "443"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: myweb-strip-path-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /myweb
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: myweb-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`dev.cams7.ml`)
+      kind: Rule
+      middlewares:
+        - name: myweb-redirect-scheme      
+      services:
+        - name: myweb
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: myweb-https
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`dev.cams7.ml`) && PathPrefix(`/myweb`)
+      kind: Rule
+      middlewares:
+        - name: myweb-strip-path-prefix
+      services:
+        - name: myweb
+          port: 80
+  tls:
+    secretName: dev.cams7.ml

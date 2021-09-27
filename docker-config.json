@@ -1,0 +1,10 @@
+{
+  "auths": {
+    "private.nexus.cams7.ml": {
+      "auth": "YWRtaW46YWJjMTIzNDU="
+    },
+    "public.nexus.cams7.ml": {
+      "auth": "YWRtaW46YWJjMTIzNDU="
+    }
+  }
+}
