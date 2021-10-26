@@ -5,6 +5,7 @@ metadata:
   labels:
     app: web
   name: mynginx
+  namespace: dungla
 spec:
   replicas: 1
   selector:
@@ -26,6 +27,7 @@ metadata:
   labels:
     app: web
   name: mynginx
+  namespace: dungla
 spec:
   ports:
   - nodePort: 32223
