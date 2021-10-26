@@ -12,8 +12,8 @@ pipeline {
 
     stage('Deploy App') {
       steps {
+        sh 'ls -la'
         script {
-	  sh 'ls -la'
           kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
         }
       }
