@@ -13,6 +13,7 @@ pipeline {
     stage('Deploy App') {
       steps {
         sh 'ls -la'
+	sh 'docker info'
         script {
           kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
         }
