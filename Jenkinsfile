@@ -1,20 +1,25 @@
 pipeline {
-  agent {
-    kubernetes {
-      //cloud 'kubernetes'
-      containerTemplate {
-        name 'maven'
-        image 'maven:3.8.1-jdk-8'
-        command 'sleep'
-        args '99d'
+
+  agent { label 'jenkins-agent' }
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-stage'
       }
     }
-  }
-  stages {
-    stage('Run maven') {
+
+    stage('Deploy App') {
       steps {
-        sh 'mvn -version'
+        sh 'ls -la'
+	sh 'java --version'
+        script {
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
+        }
       }
+    }
+
   }
-}
+
 }
