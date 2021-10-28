@@ -1,0 +1,27 @@
+podTemplate(containers: [
+    containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d')
+])
+pipeline {
+
+  agent { label 'jenkins-agent' }
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-stage'
+      }
+    }
+
+    stage('Deploy App') {
+      steps {
+        sh 'ls -la'
+        script {
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
+        }
+      }
+    }
+
+  }
+
+}
