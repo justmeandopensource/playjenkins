@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   labels:
     app: web
-  name: mynginx
+  name: mynginx111
   namespace: dungla
 spec:
   replicas: 1
