@@ -11,4 +11,10 @@ podTemplate(containers: [
                 }
             }
         }
-
+}
+  post { 
+        always { 
+            cleanWs()
+        }
+    }
+}
