@@ -13,7 +13,7 @@ pipeline {
     stage('Deploy App') {
       steps {
         sh 'ls -la'
-	sh 'java --version'
+	sh 'java -version'
         script {
           kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
         }
