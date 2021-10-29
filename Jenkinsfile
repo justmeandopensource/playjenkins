@@ -6,7 +6,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-stage'
+        git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-dungla'
       }
     }
 
