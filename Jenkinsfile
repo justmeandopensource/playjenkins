@@ -3,7 +3,7 @@ pipeline {
   agent { label 'jenkins-docker-agent' }
 
   stages {
-
+    container('jenkins-docker-agent')
     stage('Checkout Source') {
       steps {
         git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-dungla'
@@ -11,7 +11,6 @@ pipeline {
     }
 
     stage('Deploy App') {
-      container('jenkins-docker-agent')
       steps {
         sh 'docker build -t a:b -f Dockerfile .'
         sh 'ls -la'
