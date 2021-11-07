@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { label 'jenkins-agent' }
+  agent { label 'jenkins-docker-agent' }
 
   stages {
 
@@ -12,6 +12,7 @@ pipeline {
 
     stage('Deploy App') {
       steps {
+        docker info
         sh 'ls -la'
 	sh 'java -version'
         script {
