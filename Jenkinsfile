@@ -8,20 +8,13 @@ pipeline {
         git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-dungla'
       }
     }
-    stage('Pushing Image') {
-      environment {
-               registryCredential = 'dockerloginnexus'
-           }
-      steps{
-        script {
-          docker.withRegistry( 'https://nexus.api-connect.io', registryCredential )
-        }
-      }
-    }
-
-    stage('Deploy App') {
+    stage('Docker build') {
       steps {
         sh 'docker build -t a:b -f Dockerfile .'
+      }
+    }
+    stage('Deploy App') {
+      steps {
         sh 'ls -la'
 	sh 'java -version'
         script {
