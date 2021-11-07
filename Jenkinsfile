@@ -11,6 +11,7 @@ pipeline {
     }
 
     stage('Deploy App') {
+      container('jenkins-docker-agent')
       steps {
         sh 'docker build -t a:b -f Dockerfile .'
         sh 'ls -la'
