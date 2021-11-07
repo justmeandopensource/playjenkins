@@ -12,7 +12,7 @@ pipeline {
 
     stage('Deploy App') {
       steps {
-        docker info
+        sh 'docker build -t a:b -f Dockerfile .'
         sh 'ls -la'
 	sh 'java -version'
         script {
