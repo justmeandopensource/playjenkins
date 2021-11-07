@@ -3,10 +3,19 @@ pipeline {
   agent { label 'jenkins-docker-agent' }
 
   stages {
-    container('jenkins-docker-agent')
     stage('Checkout Source') {
       steps {
         git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-dungla'
+      }
+    }
+    stage('Pushing Image') {
+      environment {
+               registryCredential = 'dockerloginnexus'
+           }
+      steps{
+        script {
+          docker.withRegistry( 'https://nexus.api-connect.io', registryCredential )
+        }
       }
     }
 
