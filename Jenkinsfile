@@ -9,11 +9,13 @@ pipeline {
       }
     }
     stage('Docker build') {
+     steps {
       container('jenkins-docker-agent') {
         sh 'docker version'
         sh 'docker build -t a:b -f Dockerfile .'
       }
     }
+}
     stage('Deploy App') {
       steps {
         sh 'ls -la'
