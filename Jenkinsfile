@@ -10,7 +10,7 @@ pipeline {
     }
     stage('Docker build') {
      steps {
-      container('jenkins-docker-agent') {
+      container('docker-dind') {
         sh 'docker version'
         sh 'docker build -t a:b -f Dockerfile .'
       }
