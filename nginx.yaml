@@ -30,7 +30,7 @@ metadata:
   namespace: dungla
 spec:
   ports:
-  - nodePort: 32223
+  - nodePort: 32224
     port: 80
     protocol: TCP
     targetPort: 80
