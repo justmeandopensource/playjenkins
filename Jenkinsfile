@@ -1,42 +1,27 @@
 pipeline {
 
-  environment {
-    registry = "192.168.1.81:5000/justme/myweb"
-    dockerImage = ""
-  }
-
-  agent any
+  agent { label 'jenkins-docker-agent' }
 
   stages {
-
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/justmeandopensource/playjenkins.git'
+        git url:'https://github.com/ladung/playjenkins.git', branch:'test-deploy-dungla'
       }
     }
-
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
+    stage('Docker build') {
+     steps {
+      container('docker-dind') {
+        sh 'docker version'
+        sh 'docker build -t a:b -f Dockerfile .'
       }
     }
-
-    stage('Push Image') {
-      steps{
-        script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-
+}
     stage('Deploy App') {
       steps {
+        sh 'ls -la'
+	sh 'java -version'
         script {
-          kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubeconfigdev")
         }
       }
     }

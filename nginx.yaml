@@ -3,36 +3,37 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: myweb
-  name: myweb
+    app: web
+  name: mynginx111
+  namespace: dungla
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myweb
+      app: web
   template:
     metadata:
       labels:
-        app: myweb
+        app: web
     spec:
       containers:
-      - image: 192.168.1.81:5000/justme/myweb:1
-        imagePullPolicy: Always
-        name: myweb
+      - image: nginx:$BUILD_NUMBER
+        name: mynginx
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: myweb
-  name: myweb
+    app: web
+  name: mynginx
+  namespace: dungla
 spec:
   ports:
-  - nodePort: 32223
+  - nodePort: 32224
     port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: myweb
+    app: web
   type: NodePort

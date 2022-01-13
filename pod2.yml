@@ -1,0 +1,20 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+    name: dood 
+spec: 
+    containers: 
+      - name: docker-cmds 
+        image: docker:1.12.6 
+        command: ['docker', 'run', '-p', '80:80', 'httpd:latest'] 
+        resources: 
+            requests: 
+                cpu: 10m 
+                memory: 256Mi 
+        volumeMounts: 
+          - mountPath: /var/run 
+            name: docker-sock 
+    volumes: 
+      - name: docker-sock 
+        hostPath: 
+            path: /var/run 
