@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "localhost:50000/justme/myweb"
+    registry = "localhost:50000"
     dockerImage = ""
   }
 
@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/justmeandopensource/playjenkins.git'
+        git 'https://github.com/jhasourav141/playjenkins.git'
       }
     }
 
@@ -36,7 +36,7 @@ pipeline {
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
+          kubernetesDeploy(configs: "testpod.yaml", kubeconfigId: "mykubeconfig")
         }
       }
     }
