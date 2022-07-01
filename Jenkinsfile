@@ -1,12 +1,5 @@
 pipeline {
-
-  environment {
-    registry = "localhost:50000"
-    dockerImage = ""
-  }
-
-  agent any
-
+agent any
   stages {
 
     stage('Checkout Source') {
@@ -15,23 +8,7 @@ pipeline {
       }
     }
 
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-
-    stage('Push Image') {
-      steps{
-        script {
-          docker.withRegistry( "" ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
+    
 
     stage('Deploy App') {
       steps {
