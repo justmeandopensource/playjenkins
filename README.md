@@ -1,2 +1,0 @@
-# playjenkins
-Jenkins Playground
