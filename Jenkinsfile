@@ -13,7 +13,7 @@ agent any
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "testpod.yaml", kubeconfigId: "mykubeconfig")
+          kubernetesDeploy(configs: "testpod.yaml")
         }
       }
     }
