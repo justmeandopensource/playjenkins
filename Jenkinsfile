@@ -17,12 +17,12 @@ agent any
           bat '${my-kubeconfig}'
           
         }
-      }
-    }
+    }  
+    
 
-  }
-
+ } 
 }
+
 
 
       
