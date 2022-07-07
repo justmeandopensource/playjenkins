@@ -11,9 +11,11 @@ agent any
     
 
     stage('Deploy App') {
-      steps {
-        script {
-          kubernetesDeploy(configs: 'testpod.yaml' , configId: 'kubernetes')
+      steps { 
+          echo 'deploying the application'
+          echo "deploying with ${my-kubeconfig}"
+          bat '${my-kubeconfig}'
+          
         }
       }
     }
@@ -21,3 +23,6 @@ agent any
   }
 
 }
+
+
+      
